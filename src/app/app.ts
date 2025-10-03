@@ -31,19 +31,12 @@ export class App implements OnInit{
   }
 
   move(index: number) {
-    const rhombusChecks = [
-      { pos: index - 1, value: this.allItems[index - 1] },
-      { pos: index + 1, value: this.allItems[index + 1] },
-      { pos: index - 4, value: this.allItems[index - 4] },
-      { pos: index + 4, value: this.allItems[index + 4] },
-    ];
+    const emptyIndex = this.allItems.indexOf(null);
+    const validMoves = [emptyIndex - 1, emptyIndex + 1, emptyIndex - 4, emptyIndex + 4];
+    if (!validMoves.includes(index)) return;
 
-    const check = rhombusChecks.find(n => n.value === null);
-    if (!check) return;
-
-    const { pos } = check;
     const updated = [...this.allItems];
-    updated[pos] = updated[index];
+    updated[emptyIndex] = updated[index];
     updated[index] = null;
     this.allItems = updated;
   }
